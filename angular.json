@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "udem-app"
+    }
+  },
+  "defaultProject": "udem-app",
+  "cli": {
+    "analytics": "483da10b-0f9c-4257-82e9-849438567415"
+  }
 }

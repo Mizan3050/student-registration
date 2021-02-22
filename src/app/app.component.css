@@ -1,0 +1,6 @@
+p {
+  color: darkblue;
+}
+input#birthdate {
+  width: 200px;
+}
