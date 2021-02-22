@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import {FormBuilder, Validators, FormArray, MinLengthValidator, FormArrayName, FormGroup, FormControl} from '@angular/forms';
 
+enum RadioOption{
+  sports = "sports",
+  others = "others",
+}
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,9 +13,10 @@ import {FormBuilder, Validators, FormArray, MinLengthValidator, FormArrayName, F
 
 
 export class AppComponent implements OnInit {
-  birthYear = new Date();
-  age:number = 18;
 
+  age = 18;
+  isEligible = false;
+  curricularOption = RadioOption;
   get name(){
     return this.studentRegisteration.get('name');
   }
@@ -20,21 +25,16 @@ export class AppComponent implements OnInit {
     return this.studentRegisteration.get('username');
   }
 
-  //to check if student age is greater than 15
-  getAge():boolean{
-    return this.age < 15? true : false 
-  }
-
+  //initializing formbuilder
   constructor (private fb:FormBuilder){}
-
-  //initializin registraion form
   studentRegisteration = this.fb.group({
   })
 
 
   ngOnInit(): void {
     console.log("app");
-    //populating form 
+
+    //initializing registraion form 
     this.studentRegisteration = this.fb.group({
       name:['', [Validators.required, Validators.minLength(3)]],
       username:['', [Validators.required,  Validators.minLength(3)]],
@@ -47,50 +47,65 @@ export class AppComponent implements OnInit {
       hobbies: new FormArray([]),
     })
 
-    //checks students age aftering entering date
+    //checks students age aftering entering date of birth
     this.studentRegisteration.get('dateob').valueChanges.subscribe((value:Date) =>{
       this.checkAge(value);
-      this.getAge();
+      if(this.age > 15){
+        this.isEligible = true;
+      }
+      else{
+        this.isEligible = false;
+      }
     })
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {   
+    if(changes.age){
+      this.age;
+    }
+    console.log(this.age)
   }
 
   //submitting form data
   registerStudent(){
     console.log(this.studentRegisteration.value);
-    this.birthYear = new Date(this.studentRegisteration.value.dateob);
     this.studentRegisteration.reset();
 
     //clearing sports formarray
-    const control = <FormArray>this.studentRegisteration.controls['sports'];
-        for(let i = control.length-1; i >= 0; i--) {
-            control.removeAt(i)
-        }
-    
+    (<FormArray>this.studentRegisteration.controls['sports']).clear();
     //clearing hobbies formarray
-    const control2 = <FormArray>this.studentRegisteration.controls['hobbies'];
-    for(let i = control2.length-1; i >= 0; i--) {
-        control2.removeAt(i)
-      }
+    (<FormArray>this.studentRegisteration.controls['hobbies']).clear();
   }
 
   //age of student custom validation
-  checkAge(birthYear: Date){
-    const year = new Date(birthYear);
+  checkAge(birthDate: Date){
+    const birthYear = new Date(birthDate);
     const today = new Date();
-    this.age = today.getFullYear() - year.getFullYear();
-    const m = today.getMonth() - year.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < year.getDate())) {
+    this.age = today.getFullYear() - birthYear.getFullYear();
+
+    //calculating age with birth month
+    const month = today.getMonth() - birthYear.getMonth();
+    if (month < 0 || (month === 0 && today.getDate() < birthYear.getDate())) {
       this.age--;
-      return this.age >17 ? {'legal': true} : null;
     }
+    this.studentRegisteration.value.studentAge = this.age;
     return this.age;
+  }
+
+  //deleting sport from sports formarray
+  deleteSport(i:number){
+    (<FormArray>this.studentRegisteration.controls['sports']).removeAt(i);
+  }
+
+  //deleting sport from hobbies formarray
+  deleteHobby(i:number){
+    (<FormArray>this.studentRegisteration.controls['hobbies']).removeAt(i);
   }
 
   //adding hobbies to hoobies form array
   getHobbies(){
     return (<FormArray>this.studentRegisteration.get('hobbies')).controls;
   }
-
   addHobby(){
     const control = new FormControl(null, Validators.required);
     (<FormArray> this.studentRegisteration.controls['hobbies']).push(control);
@@ -100,7 +115,6 @@ export class AppComponent implements OnInit {
   getSports(){
     return (<FormArray>this.studentRegisteration.get('sports')).controls;
   }
-
   addSport(){
     const control = new FormControl(null, Validators.required);
     (<FormArray> this.studentRegisteration.controls['sports']).push(control);
