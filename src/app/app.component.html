@@ -34,11 +34,12 @@
             </div>
             <div>
                 <label for="birthdate" class="form-label">Date of Birth:</label>
-                <input type="date" class="form-control" id="birthdate" formControlName="dateob" >
+                <input [class.is-invalid]="dateob.valid && dateob.touched" type="date" class="form-control" id="birthdate" formControlName="dateob" >
             </div>
-            <div *ngIf="!isEligible">
-                <p>You should be 15+</p>
+            <div *ngIf="dateob.valid && dateob.touched">
+                <p class="text-danger">You should be 15+</p>
             </div>
+            <h6 style="text-align: left;" class="mt-2">Mention your extracurriculars</h6>
             <div class="form-check mt-2">
                 <input class="form-check-input" type="radio" name="extraCur" id="flexRadioDefault1" [value]="curricularOption.sports" formControlName="extraCur">
                 <label class="form-check-label" for="flexRadioDefault1">

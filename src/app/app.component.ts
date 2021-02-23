@@ -14,9 +14,9 @@ enum RadioOption{
 
 export class AppComponent implements OnInit {
 
-  age = 18;
-  isEligible = false;
+  age : number;
   curricularOption = RadioOption;
+
   get name(){
     return this.studentRegisteration.get('name');
   }
@@ -24,6 +24,10 @@ export class AppComponent implements OnInit {
   get username(){
     return this.studentRegisteration.get('username');
   }
+
+  get dateob(){
+    return this.studentRegisteration.get('dateob');
+  }  
 
   //initializing formbuilder
   constructor (private fb:FormBuilder){}
@@ -40,7 +44,7 @@ export class AppComponent implements OnInit {
       username:['', [Validators.required,  Validators.minLength(3)]],
       address:[''],
       city:[''],
-      dateob:[''],
+      dateob:['', this.dateValidator.bind(this)],
       extraCur:['sports'],
       other:[''],
       sports: new FormArray([]),
@@ -48,22 +52,7 @@ export class AppComponent implements OnInit {
     })
 
     //checks students age aftering entering date of birth
-    this.studentRegisteration.get('dateob').valueChanges.subscribe((value:Date) =>{
-      this.checkAge(value);
-      if(this.age > 15){
-        this.isEligible = true;
-      }
-      else{
-        this.isEligible = false;
-      }
-    })
-  }
 
-  ngOnChanges(changes: SimpleChanges): void {   
-    if(changes.age){
-      this.age;
-    }
-    console.log(this.age)
   }
 
   //submitting form data
@@ -77,20 +66,7 @@ export class AppComponent implements OnInit {
     (<FormArray>this.studentRegisteration.controls['hobbies']).clear();
   }
 
-  //age of student custom validation
-  checkAge(birthDate: Date){
-    const birthYear = new Date(birthDate);
-    const today = new Date();
-    this.age = today.getFullYear() - birthYear.getFullYear();
 
-    //calculating age with birth month
-    const month = today.getMonth() - birthYear.getMonth();
-    if (month < 0 || (month === 0 && today.getDate() < birthYear.getDate())) {
-      this.age--;
-    }
-    this.studentRegisteration.value.studentAge = this.age;
-    return this.age;
-  }
 
   //deleting sport from sports formarray
   deleteSport(i:number){
@@ -118,5 +94,27 @@ export class AppComponent implements OnInit {
   addSport(){
     const control = new FormControl(null, Validators.required);
     (<FormArray> this.studentRegisteration.controls['sports']).push(control);
+  }
+
+  //custom date validator
+  dateValidator(control: FormControl): {[s:string]: boolean} {
+    // implementation of the validation
+    this.checkAge(control.value);
+    return (this.age>15? {'legalAge': true} : null);
+}
+
+  //age of student custom validation
+  checkAge(birthDate: Date){
+    const birthYear = new Date(birthDate);
+    const today = new Date();
+    this.age = today.getFullYear() - birthYear.getFullYear();
+
+    //calculating age with birth month
+    const month = today.getMonth() - birthYear.getMonth();
+    if (month < 0 || (month === 0 && today.getDate() < birthYear.getDate())) {
+      this.age--;
+    }
+    this.studentRegisteration.value.studentAge = this.age;
+    return this.age;
   }
 }
