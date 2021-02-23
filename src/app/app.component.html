@@ -1,81 +1,14 @@
-<div class="container-fluid mt-4">
-    <h4>Student Registration form</h4>
-    <hr>
-    <form class="form-group mt-4 mb-4" [formGroup]="studentRegisteration" (ngSubmit)="registerStudent()">
-        <div class="row justify-content-center">
-        <div class="col-md-4">
-
-            <div>
-                <label for="name" class="form-label">Name:</label>
-                <input [class.is-invalid]="name.invalid && name.touched" type="text" class="form-control" id="name" formControlName="name">
-                <div *ngIf = "name.invalid && name.touched">
-                    <small *ngIf="name.errors?.required" class="text-danger">name required</small>
-                    <small *ngIf="name.errors?.minlength" class="text-danger">Enter atleat 3 characters</small>
-                </div>
-            </div>
-
-            <div>
-                <label for="username" class="form-label">Username:</label>
-                <input [class.is-invalid]="username.invalid && username.touched" type="text" class="form-control" id="username" formControlName="username">
-                <div *ngIf = "username.invalid && username.touched">
-                    <small *ngIf="username.errors?.required" class="text-danger">username required</small>
-                    <small *ngIf="username.errors?.minlength" class="text-danger">Enter atleat 3 characters</small>
-                </div>
-            </div>  
-
-            <div>
-                <label for="address" class="form-label">Address:</label>
-                <input type="text" class="form-control" id="address" formControlName="address">
-            </div>
-
-            <div>
-                <label for="city" class="form-label">City:</label>
-                <input type="text" class="form-control" id="city" formControlName="city">
-            </div>
-            <div>
-                <label for="birthdate" class="form-label">Date of Birth:</label>
-                <input [class.is-invalid]="dateob.valid && dateob.touched" type="date" class="form-control" id="birthdate" formControlName="dateob" >
-            </div>
-            <div *ngIf="dateob.valid && dateob.touched">
-                <p class="text-danger">You should be 15+</p>
-            </div>
-            <h6 style="text-align: left;" class="mt-2">Mention your extracurriculars</h6>
-            <div class="form-check mt-2">
-                <input class="form-check-input" type="radio" name="extraCur" id="flexRadioDefault1" [value]="curricularOption.sports" formControlName="extraCur">
-                <label class="form-check-label" for="flexRadioDefault1">
-                  Sports
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="extraCur" id="flexRadioDefault2" [value]="curricularOption.others"  formControlName="extraCur" >
-                <label class="form-check-label" for="flexRadioDefault2">
-                  Other..
-                </label>
-              </div>
-              
-                  <div class="mt-2 mb-2" *ngIf="studentRegisteration.get('extraCur').value==='sports'" formArrayName="sports">
-                    <button class="btn btn-primary" type="button" (click)="addSport()">Add Sport</button>
-                    <div class="form-group mt-2 input-flex" *ngFor="let sports of getSports(); let i = index">
-                        <input type="text" class="form-control" [formControlName]="i">
-                        <button class="btn btn-danger" (click)="deleteSport(i)" type="button">Delete</button>
-                    </div>
-                  </div>
-              
-              
-                <div *ngIf="studentRegisteration.get('extraCur').value==='others'" class="mt-2 mb-2" formArrayName="hobbies">
-                    <button class="btn btn-primary bt-sm" type="button" (click)="addHobby()">Add Hobby</button>
-                    <div class="form-group mt-2 input-flex" *ngFor="let hobbies of getHobbies(); let i = index">
-                        <input type="text" class="form-control" [formControlName]="i">
-                        <button class="btn btn-danger" (click)="deleteHobby(i)" type="button">Delete</button>
-                    </div>
-                </div>  
-              
-              
-            <button class="btn btn-primary mt-2" type="submit" [disabled]="studentRegisteration.invalid">Submit</button>
-        </div>
-        
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" routerLink="" style="color: aliceblue;">Student List</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="createStudent" style="color: aliceblue;">Add Students</a></li>
+      </ul>
     </div>
-        
-    </form>
-    {{studentRegisteration.value | json}}
-</div>
+  </nav>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>

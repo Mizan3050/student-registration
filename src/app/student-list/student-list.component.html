@@ -1,0 +1,27 @@
+<br/>
+<h3>List of Students</h3>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Username</th>
+        <th scope="col">Address</th>
+        <th scope="col">Date of Birth</th>
+        <th scope="col">Operations</th>
+        <th scope="col">Activities</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of listOfStudents; let i = index">
+        <th scope="row">{{student.id}}</th>
+        <td>{{student.name}}</td>
+        <td>{{student.username}}</td>
+        <td>{{student.city}}</td>
+        <td>{{student.dateob}}</td>
+        <td>{{student.extraCur}}</td>
+        <td><button class="btn btn-danger" style="color: white;" (click)="deleteStudent(i)">|_|</button>
+        <a routerLink="/updateStudent/{{student.id}}"><button class="btn btn-warning" style="color: white;" (click)="updateStudent(student.id)">Ed</button></a>
+        </td>
+    </tbody>
+  </table>
