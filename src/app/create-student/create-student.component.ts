@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators, FormArray,FormGroup, FormControl} from '@angular/forms';
 import {StudentService} from '../student.service';
 import {ActivatedRoute} from '@angular/router'
+import {Student} from './models/student';
 
 enum RadioOption{
   sports = "sports",
@@ -27,8 +28,8 @@ export class CreateStudentComponent implements OnInit {
     return this.studentRegisteration.get('username');
   }
 
-  get dateob(){
-    return this.studentRegisteration.get('dateob');
+  get dateOfBirth(){
+    return this.studentRegisteration.get('dateOfBirth');
   }  
 
   //initializing formbuilder
@@ -43,8 +44,8 @@ export class CreateStudentComponent implements OnInit {
       username:['', [Validators.required,  Validators.minLength(3), Validators.pattern('[a-zA-Z0-9 _-]*')]],
       address:[''],
       city:[''],
-      dateob:['', this.dateValidator.bind(this)],
-      extraCur:[this.curricularOption.sports],
+      dateOfBirth:['', this.dateValidator.bind(this)],
+      extraCurricular:[this.curricularOption.sports],
       other:[''],
       sports: new FormArray([]),
       hobbies: new FormArray([]),
@@ -52,24 +53,21 @@ export class CreateStudentComponent implements OnInit {
     this.toUpdate = this.student.toUpdate;
 
     if(this.toUpdate){
-      this.student.getStudentToUpdate(this.router.snapshot.params.id).subscribe((result)=>{
-        this.studentRegisteration = this.fb.group({
-          name:[result['name'], [Validators.required, Validators.minLength(3)]],
-          username:[result['username'], [Validators.required,  Validators.minLength(3)]],
-          address:[result['address']],
-          city:[result['city']],
-          dateob:[result['dateob'], this.dateValidator.bind(this)],
-          extraCur:[result['extraCur']],
-          other:[result['other']],
-          sports: [result['sports']],
-          hobbies: [result['hobbies']],
+      this.student.getStudentToUpdate(this.router.snapshot.params.id).subscribe((result : Student)=>{
+        this.studentRegisteration.patchValue({
+          name:result.name,
+          username:result.username,
+          address:result.address,
+          city:result.city,
+          dateOfBirth:result.dateOfBirth,
+          extraCurricular: result.extraCurricular,
+          other:result['other'],
+          sports:result['sports']
         })
-        
       })
     }
   }
 
-  //submitting form data
   registerStudent(){
 
     this.student.addStudent(this.studentRegisteration.value).subscribe((result)=>{

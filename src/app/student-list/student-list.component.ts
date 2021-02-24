@@ -18,10 +18,10 @@ export class StudentListComponent implements OnInit {
     })
   }
 
-  deleteStudent(i){
-    this.listOfStudents.splice(i);
-    // this.student.deleteStudent(i).subscribe();
-    console.log(i);
+  deleteStudent(item,i){
+    this.listOfStudents.splice(i,1);
+    this.student.deleteStudent(item).subscribe();
+    console.log(item);
   }
 
   updateStudent(i){

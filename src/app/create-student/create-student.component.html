@@ -35,26 +35,26 @@
             </div>
             <div>
                 <label for="birthdate" class="form-label">Date of Birth:</label>
-                <input [class.is-invalid]="dateob.invalid && dateob.touched" type="date" class="form-control" id="birthdate" formControlName="dateob" >
+                <input [class.is-invalid]="dateOfBirth.invalid && dateOfBirth.touched" type="date" class="form-control" id="birthdate" formControlName="dateOfBirth" >
             </div>
-            <div *ngIf="dateob.invalid && dateob.touched">
+            <div *ngIf="dateOfBirth.invalid && dateOfBirth.touched">
                 <p class="text-danger">You should be 15+</p>
             </div>
-            <h6 style="text-align: left;" class="mt-2">Mention your extracurriculars</h6>
+            <h6 style="text-align: left;" class="mt-2">Mention your extraCurricularriculars</h6>
             <div class="form-check mt-2">
-                <input class="form-check-input" type="radio" name="extraCur" id="flexRadioDefault1" [value]="curricularOption.sports" formControlName="extraCur">
+                <input class="form-check-input" type="radio" name="extraCurricular" id="flexRadioDefault1" [value]="curricularOption.sports" formControlName="extraCurricular">
                 <label class="form-check-label" for="flexRadioDefault1">
                   Sports
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="extraCur" id="flexRadioDefault2" [value]="curricularOption.others"  formControlName="extraCur" >
+                <input class="form-check-input" type="radio" name="extraCurricular" id="flexRadioDefault2" [value]="curricularOption.others"  formControlName="extraCurricular" >
                 <label class="form-check-label" for="flexRadioDefault2">
                   Other..
                 </label>
               </div>
               
-                  <div class="mt-2 mb-2" *ngIf="studentRegisteration.get('extraCur').value==='sports'" formArrayName="sports">
+                  <div class="mt-2 mb-2" *ngIf="studentRegisteration.get('extraCurricular').value==='sports'" formArrayName="sports">
                     <button class="btn btn-outline-primary" type="button" (click)="addSport()">Add Sport</button>
                     <div class="form-group mt-2 input-flex" *ngFor="let sports of getSports(); let i = index">
                         <input type="text" class="form-control" [formControlName]="i">
@@ -63,7 +63,7 @@
                   </div>
               
               
-                <div *ngIf="studentRegisteration.get('extraCur').value==='others'" class="mt-2 mb-2" formArrayName="hobbies">
+                <div *ngIf="studentRegisteration.get('extraCurricular').value==='others'" class="mt-2 mb-2" formArrayName="hobbies">
                     <button class="btn btn-outline-primary bt-sm" type="button" (click)="addHobby()">Add Hobby</button>
                     <div class="form-group mt-2 input-flex" *ngFor="let hobbies of getHobbies(); let i = index">
                         <input type="text" class="form-control" [formControlName]="i">
