@@ -62,7 +62,6 @@ export class CreateStudentComponent implements OnInit {
         console.log(this.routerId);
         if(this.routerId){
           //calling getStudent to populated form to be updated
-          console.log(this.student.updateId)
           this.getStudent(this.student.updateId);
         }
       })
