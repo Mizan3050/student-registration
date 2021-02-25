@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnDestroy } from '@angular/core';
 import {FormBuilder, Validators, FormArray,FormGroup, FormControl} from '@angular/forms';
 import {StudentService} from '../student.service';
-import {ActivatedRoute} from '@angular/router'
+import {ActivatedRoute, Router} from '@angular/router'
 import {Student} from '../models/student';
 
 enum RadioOption{
   sports = "sports",
   others = "others",
 }
+
 @Component({
   selector: 'app-create-student',
   templateUrl: './create-student.component.html',
   styleUrls: ['./create-student.component.css']
 })
-export class CreateStudentComponent implements OnInit {
+export class CreateStudentComponent implements OnInit, OnDestroy  {
 
   age : number;
   curricularOption = RadioOption;
@@ -36,7 +37,7 @@ export class CreateStudentComponent implements OnInit {
   }  
 
   //initializing formbuilder
-  constructor (private fb:FormBuilder, private student: StudentService, private router: ActivatedRoute){}
+  constructor (private fb:FormBuilder, private student: StudentService, private router: ActivatedRoute, private navigator: Router){}
 
 
 
@@ -59,7 +60,6 @@ export class CreateStudentComponent implements OnInit {
     if(this.toUpdate){
       this.router.paramMap.subscribe((result)=>{
         this.routerId= +result.get('id');
-        console.log(this.routerId);
         if(this.routerId){
           //calling getStudent to populated form to be updated
           this.getStudent(this.student.updateId);
@@ -97,6 +97,7 @@ export class CreateStudentComponent implements OnInit {
     (<FormArray>this.studentRegisteration.controls['sports']).clear();
     //clearing hobbies formarray
     (<FormArray>this.studentRegisteration.controls['hobbies']).clear();
+    this.navigator.navigate(['/studentList']);
   }
 
   //update student
@@ -107,10 +108,10 @@ export class CreateStudentComponent implements OnInit {
     this.student.studentData[this.student.updateId].id = +this.routerId;
     this.student.updateStudent(this.router.snapshot.params.id, this.studentRegisteration.value).subscribe( result=>{
     }); 
-    //succes alert after update
-    setTimeout(() => {
-      this.alert = false
-    }, 2000);
+    this.navigator.navigate(['/studentList']);
+  }
+  closeAlerts(){
+    this.alert = false;
   }
   //deleting sport from sports formarray
   deleteSport(i:number){

@@ -7,13 +7,15 @@ import { CreateStudentComponent } from './create-student/create-student.componen
 import { StudentListComponent } from './student-list/student-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { IsUndefinedPipe } from "./checknull.pipe";
+import { StudentDetailComponent } from './student-detail/student-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateStudentComponent,
     StudentListComponent,
-    IsUndefinedPipe
+    IsUndefinedPipe,
+    StudentDetailComponent
   ],
   imports: [
     BrowserModule,

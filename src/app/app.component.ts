@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
       this.student.studentData = result;
       console.log("this is app");
     })
-    
   }
 
 }

@@ -8,6 +8,6 @@ export interface Student{
     dateOfBirth: Date,
     extraCurricular:string,
     other: string,
-    sports: [],
-    hobbies: []
+    sports: string[],
+    hobbies: string[]
 }
