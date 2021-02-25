@@ -59,9 +59,11 @@ export class CreateStudentComponent implements OnInit {
     if(this.toUpdate){
       this.router.paramMap.subscribe((result)=>{
         this.routerId= +result.get('id');
+        console.log(this.routerId);
         if(this.routerId){
           //calling getStudent to populated form to be updated
-          this.getStudent(this.routerId);
+          console.log(this.student.updateId)
+          this.getStudent(this.student.updateId);
         }
       })
     }
@@ -69,7 +71,7 @@ export class CreateStudentComponent implements OnInit {
 
   //populating data in the form
   getStudent(id:number){
-    const data = this.student.studentData[id-1];
+    const data = this.student.studentData[id];
     this.studentRegisteration.patchValue({
       name: data.name,
       username:data.username,
@@ -101,8 +103,9 @@ export class CreateStudentComponent implements OnInit {
   //update student
   updateStudent(){
     this.alert = true;
-    this.student.studentData[this.routerId-1] = this.studentRegisteration.value;
-    this.student.studentData[this.routerId-1].id = +this.routerId;
+    //updating values in dom array
+    this.student.studentData[this.student.updateId] = this.studentRegisteration.value;
+    this.student.studentData[this.student.updateId].id = +this.routerId;
     this.student.updateStudent(this.router.snapshot.params.id, this.studentRegisteration.value).subscribe( result=>{
     }); 
     //succes alert after update
