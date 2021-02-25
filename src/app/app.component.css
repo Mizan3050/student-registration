@@ -4,9 +4,3 @@ p {
 input#birthdate {
   width: 200px;
 }
-
-.input-flex {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-}
