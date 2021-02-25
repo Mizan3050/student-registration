@@ -1,31 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Student} from './models/student';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
-  url = "http://localhost:3000/students";
-  studentData :any;
+  url1 = "http://localhost:3000/students";
+  url = "https://jsonplaceholder.typicode.com/users"
+  
   toUpdate:boolean = false;
+  public studentData : Student[];
   constructor(private http : HttpClient) { }
 
-  getStudentList(){
-    return this.http.get(this.url);
+  getStudentList() : Observable<Student[]>{
+    return this.http.get<Student[]>(this.url);
   }
 
   addStudent(data){
     return this.http.post(this.url, data);
   }
-  deleteStudent(id){
+  deleteStudent(id:number){
     return this.http.delete(this.url + `/${id}`);
   }
 
-  getStudentToUpdate(id){
+  getStudentToUpdate(id:number){
     return this.http.get(this.url + `/${id}`);
   }
 
-  updateStudent(id, data){
+  updateStudent(id:number, data){
     return this.http.put(this.url + `/${id}`, data);
   }
 }

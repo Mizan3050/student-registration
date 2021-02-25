@@ -1,6 +1,12 @@
 <div class="container-fluid mt-4">
     <h4>Student Registration form</h4>
     <hr>
+    <div *ngIf="alertCreate" class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Holy Shit!</strong> Success create
+    </div>
+    <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Holy Shit!</strong> Success
+    </div>
     <form class="form-group mt-4 mb-4" [formGroup]="studentRegisteration" (ngSubmit)="registerStudent()">
         <div class="row justify-content-center">
         <div class="col-md-5">

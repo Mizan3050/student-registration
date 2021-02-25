@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators, FormArray,FormGroup, FormControl} from '@angular/forms';
+import {StudentService} from "./student.service"
+import {Student} from './models/student'
 
 @Component({
   selector: 'app-root',
@@ -11,12 +13,16 @@ import {FormBuilder, Validators, FormArray,FormGroup, FormControl} from '@angula
 export class AppComponent implements OnInit {
   title = "udem-app";
   //initializing formbuilder
-  constructor (){}
+  constructor (private student:StudentService){}
 
 
 
   ngOnInit(): void {
-  
+    this.student.getStudentList().subscribe((result:Student[])=>{
+      this.student.studentData = result;
+      console.log("this is app");
+    })
+    
   }
 
 }

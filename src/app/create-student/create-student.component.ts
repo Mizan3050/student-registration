@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators, FormArray,FormGroup, FormControl} from '@angular/forms';
 import {StudentService} from '../student.service';
 import {ActivatedRoute} from '@angular/router'
-import {Student} from './models/student';
+import {Student} from '../models/student';
 
 enum RadioOption{
   sports = "sports",
@@ -19,7 +19,10 @@ export class CreateStudentComponent implements OnInit {
   curricularOption = RadioOption;
   studentRegisteration: FormGroup;
   toUpdate = false;
-  // validPattern = "[a-zA-Z0-9]";
+  alert = false;
+  alertCreate = false;
+  routerId:number;
+  
   get name(){
     return this.studentRegisteration.get('name');
   }
@@ -52,28 +55,42 @@ export class CreateStudentComponent implements OnInit {
     })
     this.toUpdate = this.student.toUpdate;
 
+    //getting student id tht is to be updated
     if(this.toUpdate){
-      this.student.getStudentToUpdate(this.router.snapshot.params.id).subscribe((result : Student)=>{
-        this.studentRegisteration.patchValue({
-          name:result.name,
-          username:result.username,
-          address:result.address,
-          city:result.city,
-          dateOfBirth:result.dateOfBirth,
-          extraCurricular: result.extraCurricular,
-          other:result['other'],
-          sports:result['sports']
-        })
+      this.router.paramMap.subscribe((result)=>{
+        this.routerId= +result.get('id');
+        if(this.routerId){
+          //calling getStudent to populated form to be updated
+          this.getStudent(this.routerId);
+        }
       })
     }
   }
 
-  registerStudent(){
+  //populating data in the form
+  getStudent(id:number){
+    const data = this.student.studentData[id-1];
+    this.studentRegisteration.patchValue({
+      name: data.name,
+      username:data.username,
+      address:data.address,
+      city:data.city,
+      dateOfBirth:data.dateOfBirth,
+      other:data.other
+    })
+  }
 
-    this.student.addStudent(this.studentRegisteration.value).subscribe((result)=>{
-        console.log(result);
-        this.student.studentData = result;
+  //adding a student
+  registerStudent(){
+    this.alertCreate = true;
+    this.student.addStudent(this.studentRegisteration.value).subscribe((result:Student)=>{
+        this.student.studentData.push(result);
     });
+
+    //succes alert after create
+    setTimeout(() => {
+      this.alertCreate = false;
+    }, 2000);
     this.studentRegisteration.reset();
     //clearing sports formarray
     (<FormArray>this.studentRegisteration.controls['sports']).clear();
@@ -83,9 +100,16 @@ export class CreateStudentComponent implements OnInit {
 
   //update student
   updateStudent(){
-    this.student.updateStudent(this.router.snapshot.params.id, this.studentRegisteration.value).subscribe();    
+    this.alert = true;
+    this.student.studentData[this.routerId-1] = this.studentRegisteration.value;
+    this.student.studentData[this.routerId-1].id = +this.routerId;
+    this.student.updateStudent(this.router.snapshot.params.id, this.studentRegisteration.value).subscribe( result=>{
+    }); 
+    //succes alert after update
+    setTimeout(() => {
+      this.alert = false
+    }, 2000);
   }
-
   //deleting sport from sports formarray
   deleteSport(i:number){
     (<FormArray>this.studentRegisteration.controls['sports']).removeAt(i);

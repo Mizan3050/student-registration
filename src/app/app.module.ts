@@ -6,14 +6,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateStudentComponent } from './create-student/create-student.component';
 import { StudentListComponent } from './student-list/student-list.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { IsUndefinedPipe } from "./checknull.pipe";
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateStudentComponent,
     StudentListComponent,
-    
+    IsUndefinedPipe
   ],
   imports: [
     BrowserModule,
