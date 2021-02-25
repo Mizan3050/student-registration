@@ -21,7 +21,7 @@
         <td>{{student.dateOfBirth | isUndefined}}</td>
         <td>{{student.extraCurricular | isUndefined}}</td>
         <td><button class="btn btn-danger" style="color: white;" (click)="deleteStudent(student.id,i)">|_|</button>
-        <a routerLink="/updateStudent/{{student.id}}"><button class="btn btn-warning" style="color: white;" (click)="updateStudent(student.id)">Ed</button></a>
+        <a routerLink="/updateStudent/{{student.id}}"><button class="btn btn-warning" style="color: white;" (click)="updateStudent(student.id,i)">Ed</button></a>
         </td>
     </tbody>
   </table>

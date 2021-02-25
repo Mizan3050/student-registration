@@ -23,7 +23,8 @@ export class StudentListComponent implements OnInit {
     this.student.deleteStudent(item).subscribe();
   }
 
-  updateStudent(i:number){
+  updateStudent(i:number, id:number){
     this.student.toUpdate = true;
+    this.student.updateId = id;
   }
 }

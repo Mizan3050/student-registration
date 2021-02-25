@@ -7,11 +7,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class StudentService {
-  url1 = "http://localhost:3000/students";
-  url = "https://jsonplaceholder.typicode.com/users"
+  url = "http://localhost:3000/students";
+  url2 = "https://jsonplaceholder.typicode.com/users"
   
   toUpdate:boolean = false;
   public studentData : Student[];
+  updateId:number;
   constructor(private http : HttpClient) { }
 
   getStudentList() : Observable<Student[]>{
