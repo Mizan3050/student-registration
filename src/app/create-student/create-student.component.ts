@@ -83,15 +83,9 @@ export class CreateStudentComponent implements OnInit, OnDestroy  {
 
   //adding a student
   registerStudent(){
-    this.alertCreate = true;
     this.student.addStudent(this.studentRegisteration.value).subscribe((result:Student)=>{
         this.student.studentData.push(result);
     });
-
-    //succes alert after create
-    setTimeout(() => {
-      this.alertCreate = false;
-    }, 2000);
     this.studentRegisteration.reset();
     //clearing sports formarray
     (<FormArray>this.studentRegisteration.controls['sports']).clear();
@@ -102,16 +96,12 @@ export class CreateStudentComponent implements OnInit, OnDestroy  {
 
   //update student
   updateStudent(){
-    this.alert = true;
     //updating values in dom array
     this.student.studentData[this.student.updateId] = this.studentRegisteration.value;
     this.student.studentData[this.student.updateId].id = +this.routerId;
     this.student.updateStudent(this.router.snapshot.params.id, this.studentRegisteration.value).subscribe( result=>{
     }); 
     this.navigator.navigate(['/studentList']);
-  }
-  closeAlerts(){
-    this.alert = false;
   }
   //deleting sport from sports formarray
   deleteSport(i:number){
