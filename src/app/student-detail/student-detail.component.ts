@@ -1,4 +1,3 @@
-import { partitionArray } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Student } from '../models/student';
@@ -11,7 +10,7 @@ import { StudentService } from '../student.service'
 export class StudentDetailComponent implements OnInit {
 
   routerId:number
-  studentDetail:Student;
+  studentDetail:any
   constructor(private router: ActivatedRoute, private student:StudentService) { }
 
   ngOnInit(): void {

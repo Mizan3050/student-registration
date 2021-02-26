@@ -1,8 +1,12 @@
 <div class="container mt-4">
-<p>Name: {{studentDetail.name}}</p>
-<p>Username: {{studentDetail.username}}</p>
-<p>Email: {{studentDetail.email}}</p>
-<p>City: {{studentDetail.address.street}}</p>
-<p>Company name: {{studentDetail.company.name}}</p>
-<p>Website: {{studentDetail.website}}</p>
+
+<p>Username: {{studentDetail.username | isUndefined}}</p>
+<p>Name: {{studentDetail.name | isUndefined}}</p>
+<p >Email: {{studentDetail.email | isUndefined}}</p>
+<p >City: {{studentDetail.address.street | isUndefined}}</p>
+<p >Address: {{studentDetail.city | isUndefined}}</p>
+<p >Birth Date: {{studentDetail.dateOfBirth}}</p>
+<p>Extra curricular: {{studentDetail.extraCurricular | isUndefined}}</p>
+<p>Company name: {{studentDetail.company.name | isUndefined}}</p>
+<p>Website: {{studentDetail.website | isUndefined}}</p>
 </div>
