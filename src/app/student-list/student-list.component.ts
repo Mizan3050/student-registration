@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {StudentService} from '../student.service';
 import {Student} from '../models/student'
+import { AuthService } from '../auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
@@ -9,12 +11,11 @@ import {Student} from '../models/student'
 export class StudentListComponent implements OnInit {
 
   public listOfStudents:Student[] = [];
-  constructor( private student: StudentService) { }
+  constructor( private student: StudentService, private authService : AuthService, private route:Router) { }
 
   //loading student list data
   ngOnInit(): void {
     this.listOfStudents = this.student.studentData;
-    console.log("this is student");  
   }
 
   //deleting student from dom and sending delete request to the server
@@ -24,7 +25,14 @@ export class StudentListComponent implements OnInit {
   }
 
   updateStudent(i:number, id:number){
-    this.student.toUpdate = true;
-    this.student.updateId = id;
+
+    if(!this.authService.loggedIn){
+      this.route.navigate(['/login']);
+    }
+    else{
+      this.student.toUpdate = true;
+      this.student.updateId = id;
+      this.route.navigate([`/updateStudent/${i}`]);
+    }
   }
 }

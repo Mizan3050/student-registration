@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {StudentService} from "./student.service"
 import {Student} from './models/student'
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +20,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.student.getStudentList().subscribe((result:Student[])=>{
       this.student.studentData = result;
-      console.log("this is app");
     })
-  }
 
+  }
 }

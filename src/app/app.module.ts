@@ -8,6 +8,10 @@ import { StudentListComponent } from './student-list/student-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { IsUndefinedPipe } from "./checknull.pipe";
 import { StudentDetailComponent } from './student-detail/student-detail.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGaurd } from './auth-gaurd.service';
+import { AuthService } from './auth.service';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +19,9 @@ import { StudentDetailComponent } from './student-detail/student-detail.componen
     CreateStudentComponent,
     StudentListComponent,
     IsUndefinedPipe,
-    StudentDetailComponent
+    StudentDetailComponent,
+    LoginComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +30,7 @@ import { StudentDetailComponent } from './student-detail/student-detail.componen
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthGaurd, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

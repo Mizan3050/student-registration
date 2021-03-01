@@ -3,6 +3,7 @@ import {FormBuilder, Validators, FormArray,FormGroup, FormControl} from '@angula
 import {StudentService} from '../student.service';
 import {ActivatedRoute, Router} from '@angular/router'
 import {Student} from '../models/student';
+import { AuthService } from '../auth.service';
 
 enum RadioOption{
   sports = "sports",
@@ -37,13 +38,13 @@ export class CreateStudentComponent implements OnInit, OnDestroy  {
   }  
 
   //initializing formbuilder
-  constructor (private fb:FormBuilder, private student: StudentService, private router: ActivatedRoute, private navigator: Router){}
+  constructor (private fb:FormBuilder, private student: StudentService, private router: ActivatedRoute, private navigator: Router, private log : AuthService){}
 
 
 
   ngOnInit(): void {
     //initializing registraion form 
-    this.studentRegisteration = this.fb.group({
+      this.studentRegisteration = this.fb.group({
       name:['', [Validators.required, Validators.minLength(3)]],
       username:['', [Validators.required,  Validators.minLength(3), Validators.pattern('[a-zA-Z0-9 _-]*')]],
       address:[''],
