@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
-import { StudentService } from '../student.service'
+import { StudentService } from '../services/student.service'
 @Component({
   selector: 'app-student-detail',
   templateUrl: './student-detail.component.html',

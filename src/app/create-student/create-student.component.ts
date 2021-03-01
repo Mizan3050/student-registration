@@ -1,9 +1,9 @@
 import { Component, OnInit ,OnDestroy } from '@angular/core';
 import {FormBuilder, Validators, FormArray,FormGroup, FormControl} from '@angular/forms';
-import {StudentService} from '../student.service';
+import {StudentService} from '../services/student.service';
 import {ActivatedRoute, Router} from '@angular/router'
 import {Student} from '../models/student';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 
 enum RadioOption{
   sports = "sports",

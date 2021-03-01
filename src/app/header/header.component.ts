@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.item = localStorage.getItem('currentUser');
     console.log(!this.item==null);
+    //checks if user is logged in through local storage
     if(!this.item==null){
       return null
     }
