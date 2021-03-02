@@ -16,6 +16,7 @@ export class StudentListComponent implements OnInit {
 
   //loading student list data
   ngOnInit(): void {
+    
     const {transform: isUndefined} = new IsUndefinedPipe();
     if(this.student.studentData){
       this.listOfStudents = this.student.studentData;

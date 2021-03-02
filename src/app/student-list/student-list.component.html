@@ -18,7 +18,7 @@
         <td><a routerLink="/studentList/{{student.id}}">{{student.name}}</a></td>
         <td>{{student.username}}</td>
         <td>{{student.city | isUndefined}}</td>
-        <td>{{student?.dateOfBirth | date: 'MM/dd/yyyy' | isUndefined}}</td>
+        <td>{{student.dateOfBirth | isUndefined}}</td>
         <td>{{student.extraCurricular | isUndefined}}</td>
         <td><button class="btn btn-danger" style="color: white;" (click)="deleteStudent(student.id,i)">|_|</button>
         <a><button class="btn btn-warning" style="color: white;" (click)="updateStudent(student.id,i)">Ed</button></a>
