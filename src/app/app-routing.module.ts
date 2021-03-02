@@ -7,10 +7,10 @@ import {LoginComponent} from './login/login.component';
 import { AuthGaurd } from './services/auth-gaurd.service';
 
 const routes: Routes = [
-  {path: '', component: CreateStudentComponent},
+  {path: '', canActivate:[AuthGaurd], component: CreateStudentComponent},
   {path: 'updateStudent/:id', canActivate:[AuthGaurd], component: CreateStudentComponent},
-  {path: 'studentList', component: StudentListComponent},
-  {path: 'studentDetail/:id', component: StudentDetailComponent},
+  {path: 'studentList', canActivate:[AuthGaurd], component: StudentListComponent},
+  {path: 'studentList/:id', component: StudentDetailComponent},
   {path: 'login', component: LoginComponent}
 ];
 

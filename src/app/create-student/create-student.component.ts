@@ -57,7 +57,7 @@ export class CreateStudentComponent implements OnInit, OnDestroy  {
     })
     this.toUpdate = this.student.toUpdate;
 
-    //getting student id tht is to be updated
+    //getting student id that is to be updated
     if(this.toUpdate){
       this.router.paramMap.subscribe((result)=>{
         this.routerId= +result.get('id');
@@ -75,9 +75,9 @@ export class CreateStudentComponent implements OnInit, OnDestroy  {
     this.studentRegisteration.patchValue({
       name: data.name,
       username:data.username,
-      address:data.address,
-      city:data.city,
-      dateOfBirth:data.dateOfBirth,
+      // address:data.address,
+      // city:data.city,
+      // dateOfBirth:data.dateOfBirth,
       other:data.other
     })
   }

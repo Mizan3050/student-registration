@@ -1,4 +1,5 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -7,24 +8,14 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  item:string;
-  constructor(private authService: AuthService) { }
+
+  constructor(private authService: AuthService, private route:Router) { }
 
   ngOnInit(): void {
-    this.item = localStorage.getItem('currentUser');
-    console.log(!this.item==null);
-    //checks if user is logged in through local storage
-    if(!this.item==null){
-      return null
-    }
-    else{
-      this.authService.logIn();
-    }
     console.log(this.authService.loggedIn);
-    
   }
   onLogOut(){
     this.authService.logOut();
-    localStorage.removeItem('currentUser');
+    this.route.navigate(['/login'])
   }
 }

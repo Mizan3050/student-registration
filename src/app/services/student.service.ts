@@ -18,7 +18,7 @@ export class StudentService {
   getStudentList() : Observable<Student[]>{
     return this.http.get<Student[]>(this.url);
   }
-
+  
   addStudent(data){
     return this.http.post(this.url, data);
   }

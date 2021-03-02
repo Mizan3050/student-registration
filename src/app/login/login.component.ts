@@ -20,18 +20,20 @@ export class LoginComponent implements OnInit {
       username:['', [Validators.required, Validators.minLength(3)]],
       password:['', [Validators.required,  Validators.minLength(3)]],
     })
-    if(this.authService.loggedIn){
-      this.isLoggedIn = true
+    if(this.authService.loggedIn){ 
+      this.isLoggedIn = this.authService.loggedIn //use service variable, use semi colon  
     }
     else{
-      this.isLoggedIn = false
+      this.isLoggedIn = this.authService.loggedIn
     }
+    console.log(this.isLoggedIn);
+    
   }
   loginStudent(){
-      //sending login request to auth service
-      this.authService.logIn();
-      this.authService.loggedIn = true;
-      this.route.navigate(['/studentList']);  
-      localStorage.setItem('currentUser', JSON.stringify(this.studentLogin.value))
+      this.authService.logIn(this.studentLogin.value);
+      if(this.authService.loggedIn){
+        this.route.navigate(['/studentList']); 
+      }
+       
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {StudentService} from '../services/student.service';
 import {Student} from '../models/student'
 import { AuthService } from '../services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
@@ -15,7 +15,15 @@ export class StudentListComponent implements OnInit {
 
   //loading student list data
   ngOnInit(): void {
-    this.listOfStudents = this.student.studentData;
+    if(this.student.studentData){
+      this.listOfStudents = this.student.studentData;
+    }
+    else{
+      this.student.getStudentList().subscribe( (students:Student[]) =>{
+        this.listOfStudents = students
+      })
+    }
+    
   }
 
   //deleting student from dom and sending delete request to the server
@@ -25,7 +33,6 @@ export class StudentListComponent implements OnInit {
   }
 
   updateStudent(i:number, id:number){
-
     if(!this.authService.loggedIn){
       this.route.navigate(['/login']);
     }
@@ -33,6 +40,8 @@ export class StudentListComponent implements OnInit {
       this.student.toUpdate = true;
       this.student.updateId = id;
       this.route.navigate([`/updateStudent/${i}`]);
+      console.log(i);
+      
     }
   }
 }

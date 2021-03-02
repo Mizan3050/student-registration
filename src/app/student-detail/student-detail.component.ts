@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { forkJoin } from 'rxjs';
 import { StudentService } from '../services/student.service'
 @Component({
   selector: 'app-student-detail',
@@ -9,19 +8,26 @@ import { StudentService } from '../services/student.service'
 })
 export class StudentDetailComponent implements OnInit {
 
-  routerId:number
   studentDetail:any
   constructor(private router: ActivatedRoute, private student:StudentService) { }
 
   ngOnInit(): void {
-    this.router.params.subscribe((param)=>{
-      this.studentDetail = this.student.studentData[param['id']]
+    if(this.student.studentData){
+      this.router.params.subscribe((param)=>{
+        this.studentDetail = this.student.studentData.filter(
+          student=> student.id === +param['id']
+        )
+      });
+    }
+    else{
+    this.student.getStudentList().subscribe(()=>{
+      this.router.params.subscribe((param)=>{
+        this.studentDetail = this.student.studentData.filter(
+          student=> student.id === +param['id']
+        )
+      });
     })
-    this.student.getStudentList().subscribe((result)=>{
-      this.studentDetail = result[this.studentDetail.id-1];
-      console.log(result[this.studentDetail.id-1].id)
-      this.routerId = result[this.studentDetail.id-1].id;
-    })
+  }
 }
 }
   
