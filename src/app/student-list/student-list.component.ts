@@ -3,6 +3,7 @@ import {StudentService} from '../services/student.service';
 import {Student} from '../models/student'
 import { AuthService } from '../services/auth.service';
 import {  Router } from '@angular/router';
+import { IsUndefinedPipe } from '../checknull.pipe';
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
@@ -15,6 +16,7 @@ export class StudentListComponent implements OnInit {
 
   //loading student list data
   ngOnInit(): void {
+    const {transform: isUndefined} = new IsUndefinedPipe();
     if(this.student.studentData){
       this.listOfStudents = this.student.studentData;
     }

@@ -5,13 +5,13 @@
             <div class="col-md-5">
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="username">
+          <input type="text" [class.is-invalid]="username.invalid && username.touched" class="form-control"  aria-describedby="emailHelp" formControlName="username">
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
+          <input type="password" [class.is-invalid]="password.invalid && password.touched" class="form-control"  formControlName="password">
         </div>
-        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        <button type="submit" class="btn btn-primary mt-2" [disabled]="studentLogin.invalid">Submit</button>
         </div>
         </div>
       </form>

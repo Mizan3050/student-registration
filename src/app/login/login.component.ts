@@ -15,6 +15,12 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   constructor(private fb:FormBuilder, private authService : AuthService, private route : Router) { }
 
+  get username(){
+    return this.studentLogin.get('username');
+  }
+  get password(){
+    return this.studentLogin.get('password');
+  }
   ngOnInit(): void {
     this.studentLogin = this.fb.group({
       username:['', [Validators.required, Validators.minLength(3)]],
