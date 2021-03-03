@@ -29,6 +29,7 @@ export class StudentListComponent implements OnInit {
     
   }
 
+  trackByStudents(index: number, student: Student): number { return student.id }
   //deleting student from dom and sending delete request to the server
   deleteStudent(item:number,i:number){
     this.listOfStudents.splice(i,1);
