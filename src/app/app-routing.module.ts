@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CreateStudentComponent} from './create-student/create-student.component';
+import { CreateStudentComponent } from './create-student/create-student.component';
 import { StudentListComponent } from './student-list/student-list.component';
-import { StudentDetailComponent } from './student-detail/student-detail.component';
-import {LoginComponent} from './login/login.component';
 import { AuthGaurd } from './services/auth-gaurd.service';
+import { LoginComponent } from './login/login.component';
+import { StudentDetailComponent } from './student-detail/student-detail.component';
 
 const routes: Routes = [
   {path: '', canActivate:[AuthGaurd], component: CreateStudentComponent},

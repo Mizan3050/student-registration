@@ -15,12 +15,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
 
     //checks if user is logged in
-    this.currentUser = localStorage.getItem('currentUser');
-    if (this.currentUser===null) {
-        this.isLoggedIn = false
-    } else {
-        this.isLoggedIn = true;
-    }      
+    this.authService.isLoggedIn$.subscribe(data=> this.isLoggedIn = data);
     console.log(this.isLoggedIn);
     
   }

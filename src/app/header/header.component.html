@@ -8,7 +8,6 @@
         <li class="nav-item"><a class="nav-link" routerLink="" style="color: aliceblue;">Add Students</a></li>
         <li class="nav-item" *ngIf="!isLoggedIn"><a class="nav-link" routerLink="login" style="color: aliceblue;">Login</a></li>
         <li class="nav-item" *ngIf="isLoggedIn"><a class="nav-link" routerLink="" style="color: aliceblue;" (click)="onLogOut()">Log out</a></li>
-        <!-- <li style="color: aliceblue;">{{isLoggedIn}}</li> -->
       </ul>
     </div>
   </nav>
