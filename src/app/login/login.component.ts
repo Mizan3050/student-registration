@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   isLoggedIn = false;
   constructor(private fb:FormBuilder, private authService : AuthService, private route : Router) { }
-
+  
   get username(){
     return this.studentLogin.get('username');
   }
@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit {
       password:['', [Validators.required,  Validators.minLength(3)]],
     })
     if(this.authService.loggedIn){ 
-      this.isLoggedIn = this.authService.loggedIn //use service variable, use semi colon  
+      this.isLoggedIn = this.authService.isAuthenticated(); //use service variable, use semi colon  
     }
     else{
-      this.isLoggedIn = this.authService.loggedIn
+      this.isLoggedIn = this.authService.isAuthenticated();
     }
     console.log(this.isLoggedIn);
     
