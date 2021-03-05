@@ -33,4 +33,8 @@ export class StudentService {
   updateStudent(id:number, data){
     return this.http.put(this.url + `/${id}`, data);
   }
+
+  patchStudentValue(id:number, data){
+    return this.http.patch(this.url + `/${id}`, data);
+  }
 }

@@ -6,18 +6,18 @@
         <th scope="col">id</th>
         <th scope="col">Name</th>
         <th scope="col">Username</th>
-        <th scope="col">Address</th>
+        <th scope="col">Fav Subject</th>
         <th scope="col">Date of Birth</th>
         <th scope="col">Activities</th>
         <th scope="col">Operations</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let student of listOfStudents; let i = index; trackBy: trackByStudents">
+      <tr *ngFor="let student of listOfStudents; trackBy: trackByStudents; let i = index; ">
         <th scope="row">{{(i+1)}}</th>
         <td><a routerLink="{{ student.id}}">{{student.name}}</a></td>
         <td>{{student.username}}</td>
-        <td>{{student.city | isUndefined}}</td>
+        <td>{{student.favSubject | isUndefined}}</td>
         <td>{{student.dateOfBirth | isUndefined}}</td>
         <td>{{student.extraCurricular | isUndefined}}</td>
         <td><a data-toggle="tooltip" data-placement="top" title="delete"><button class="btn btn-danger" style="color: white;" (click)="deleteStudent(student.id,i)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">

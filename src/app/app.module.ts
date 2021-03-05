@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGaurd } from './services/auth-gaurd.service';
 import { AuthService } from './services/auth.service';
 import { HeaderComponent } from './header/header.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HeaderComponent } from './header/header.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [AuthGaurd, AuthService],
   bootstrap: [AppComponent]
