@@ -11,7 +11,7 @@ import { IsUndefinedPipe } from '../checknull.pipe';
 })
 export class StudentListComponent implements OnInit {
 
-  public listOfStudents:Student[] = [];
+  public listOfStudents:Student[];
   constructor( private student: StudentService, private authService : AuthService, private route:Router) { }
 
   //loading student list data
