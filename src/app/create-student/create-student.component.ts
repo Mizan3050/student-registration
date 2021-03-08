@@ -1,8 +1,9 @@
 import { Component, OnInit ,OnDestroy } from '@angular/core';
 import {FormBuilder, Validators, FormArray,FormGroup, FormControl} from '@angular/forms';
-import {StudentService} from '../student.service';
+import {StudentService} from '../services/student.service';
 import {ActivatedRoute, Router} from '@angular/router'
 import {Student} from '../models/student';
+import { AuthService } from '../services/auth.service';
 
 enum RadioOption{
   sports = "sports",
@@ -37,13 +38,13 @@ export class CreateStudentComponent implements OnInit, OnDestroy  {
   }  
 
   //initializing formbuilder
-  constructor (private fb:FormBuilder, private student: StudentService, private router: ActivatedRoute, private navigator: Router){}
+  constructor (private fb:FormBuilder, private student: StudentService, private router: ActivatedRoute, private navigator: Router, private log : AuthService){}
 
 
 
   ngOnInit(): void {
     //initializing registraion form 
-    this.studentRegisteration = this.fb.group({
+      this.studentRegisteration = this.fb.group({
       name:['', [Validators.required, Validators.minLength(3)]],
       username:['', [Validators.required,  Validators.minLength(3), Validators.pattern('[a-zA-Z0-9 _-]*')]],
       address:[''],
@@ -56,7 +57,7 @@ export class CreateStudentComponent implements OnInit, OnDestroy  {
     })
     this.toUpdate = this.student.toUpdate;
 
-    //getting student id tht is to be updated
+    //getting student id that is to be updated
     if(this.toUpdate){
       this.router.paramMap.subscribe((result)=>{
         this.routerId= +result.get('id');
@@ -74,9 +75,9 @@ export class CreateStudentComponent implements OnInit, OnDestroy  {
     this.studentRegisteration.patchValue({
       name: data.name,
       username:data.username,
-      address:data.address,
-      city:data.city,
-      dateOfBirth:data.dateOfBirth,
+      // address:data.address,
+      // city:data.city,
+      // dateOfBirth:data.dateOfBirth,
       other:data.other
     })
   }

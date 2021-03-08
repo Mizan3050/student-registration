@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Student} from './models/student';
+import { Student} from '../models/student';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class StudentService {
   getStudentList() : Observable<Student[]>{
     return this.http.get<Student[]>(this.url);
   }
-
+  
   addStudent(data){
     return this.http.post(this.url, data);
   }
@@ -32,5 +32,9 @@ export class StudentService {
 
   updateStudent(id:number, data){
     return this.http.put(this.url + `/${id}`, data);
+  }
+
+  patchStudentValue(id:number, data){
+    return this.http.patch(this.url + `/${id}`, data);
   }
 }

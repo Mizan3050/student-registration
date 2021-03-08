@@ -1,12 +1,17 @@
-<div class="container mt-4">
 
-<p>Username: {{studentDetail.username | isUndefined}}</p>
-<p>Name: {{studentDetail.name | isUndefined}}</p>
-<p >Email: {{studentDetail.email | isUndefined}}</p>
-<p >City: {{studentDetail.address.street | isUndefined}}</p>
-<p >Address: {{studentDetail.city | isUndefined}}</p>
-<p >Birth Date: {{studentDetail.dateOfBirth}}</p>
-<p>Extra curricular: {{studentDetail.extraCurricular | isUndefined}}</p>
-<p>Company name: {{studentDetail.company.name | isUndefined}}</p>
-<p>Website: {{studentDetail.website | isUndefined}}</p>
-</div>
+
+<div class="container mt-4" *ngFor="let studentDetail of studentDetail">
+<p>Name: {{studentDetail?.name| isUndefined}}</p>
+<p>Username: {{studentDetail?.username | isUndefined}}</p>
+<p >Email: {{studentDetail?.email | isUndefined}}</p>
+<p >City: {{studentDetail?.address.street | isUndefined}}</p>
+<p >Address: {{studentDetail?.city | isUndefined}}</p>
+<p >Birth Date: {{studentDetail?.dateOfBirth | isUndefined}}</p>
+<p>Extra curricular: {{studentDetail?.extraCurricular | isUndefined}}</p>
+
+<form [formGroup]="favSubject" (ngSubmit)="favouriteSubject()">
+    <input type="text" formControlName="subjectName" class="form-control" placeholder="Enter your favorite subject" style="width: 270px;">
+    <button class="btn btn-primary mt-2" type="submit">Submit
+         <fa-icon [icon]="faSpinner" [pulse]="true" *ngIf="loading"></fa-icon>
+        </button>
+</form>

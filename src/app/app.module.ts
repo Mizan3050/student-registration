@@ -8,6 +8,11 @@ import { StudentListComponent } from './student-list/student-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { IsUndefinedPipe } from "./checknull.pipe";
 import { StudentDetailComponent } from './student-detail/student-detail.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGaurd } from './services/auth-gaurd.service';
+import { AuthService } from './services/auth.service';
+import { HeaderComponent } from './header/header.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -15,16 +20,19 @@ import { StudentDetailComponent } from './student-detail/student-detail.componen
     CreateStudentComponent,
     StudentListComponent,
     IsUndefinedPipe,
-    StudentDetailComponent
+    StudentDetailComponent,
+    LoginComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
-  providers: [],
+  providers: [AuthGaurd, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

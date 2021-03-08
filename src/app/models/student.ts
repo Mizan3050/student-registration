@@ -9,5 +9,6 @@ export interface Student{
     extraCurricular:string,
     other: string,
     sports: string[],
-    hobbies: string[]
+    hobbies: string[],
+    favSubject: string
 }

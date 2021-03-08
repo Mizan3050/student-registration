@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {StudentService} from '../student.service';
+import {StudentService} from '../services/student.service';
 import {Student} from '../models/student'
+import { AuthService } from '../services/auth.service';
+import {  Router } from '@angular/router';
+import { IsUndefinedPipe } from '../checknull.pipe';
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
@@ -8,15 +11,25 @@ import {Student} from '../models/student'
 })
 export class StudentListComponent implements OnInit {
 
-  public listOfStudents:Student[] = [];
-  constructor( private student: StudentService) { }
+  public listOfStudents:Student[];
+  constructor( private student: StudentService, private authService : AuthService, private route:Router) { }
 
   //loading student list data
   ngOnInit(): void {
-    this.listOfStudents = this.student.studentData;
-    console.log("this is student");  
+    
+    const {transform: isUndefined} = new IsUndefinedPipe();
+    if(this.student.studentData){
+      this.listOfStudents = this.student.studentData;
+    }
+    else{
+      this.student.getStudentList().subscribe( (students:Student[]) =>{
+        this.listOfStudents = students
+      })
+    }
+    
   }
 
+  trackByStudents(index: number, student: Student): number { return student.id }
   //deleting student from dom and sending delete request to the server
   deleteStudent(item:number,i:number){
     this.listOfStudents.splice(i,1);
@@ -24,7 +37,15 @@ export class StudentListComponent implements OnInit {
   }
 
   updateStudent(i:number, id:number){
-    this.student.toUpdate = true;
-    this.student.updateId = id;
+    if(!this.authService.loggedIn){
+      this.route.navigate(['/login']);
+    }
+    else{
+      this.student.toUpdate = true;
+      this.student.updateId = id;
+      this.route.navigate([`/updateStudent/${i}`]);
+      console.log(i);
+      
+    }
   }
 }
