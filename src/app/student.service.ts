@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Student} from './models/student';
 import { Observable } from 'rxjs';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,7 @@ export class StudentService {
   url = "https://jsonplaceholder.typicode.com/users"
   
   toUpdate:boolean = false;
-  public studentData : Student[];
+  public studentData:Student[];
   updateId:number;
   constructor(private http : HttpClient) { }
 
@@ -33,4 +35,13 @@ export class StudentService {
   updateStudent(id:number, data){
     return this.http.put(this.url + `/${id}`, data);
   }
+<<<<<<< Updated upstream:src/app/student.service.ts
+=======
+
+  patchStudentValue(id:number, data){
+    return this.http.patch(this.url + `/${id}`, data);
+  }
+
+
+>>>>>>> Stashed changes:src/app/services/student.service.ts
 }
