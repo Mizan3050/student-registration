@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let student of listOfStudents; trackBy: trackByStudents; let i = index; ">
+      <tr *ngFor="let student of (listOfStudents$ | async); trackBy: trackByStudents; let i = index; ">
         <th scope="row">{{(i+1)}}</th>
         <td><a routerLink="{{ student.id}}">{{student.name}}</a></td>
         <td>{{student.username}}</td>

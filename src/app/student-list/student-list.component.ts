@@ -4,6 +4,7 @@ import {Student} from '../models/student'
 import { AuthService } from '../services/auth.service';
 import {  Router } from '@angular/router';
 import { IsUndefinedPipe } from '../checknull.pipe';
+import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
@@ -11,19 +12,19 @@ import { IsUndefinedPipe } from '../checknull.pipe';
 })
 export class StudentListComponent implements OnInit {
 
-  public listOfStudents:Student[];
+  public listOfStudents$ :BehaviorSubject<Student[]>;
   constructor( private student: StudentService, private authService : AuthService, private route:Router) { }
 
   //loading student list data
   ngOnInit(): void {
-    
+    this.listOfStudents$ = new BehaviorSubject([]);
     const {transform: isUndefined} = new IsUndefinedPipe();
     if(this.student.studentData){
-      this.listOfStudents = this.student.studentData;
+      this.listOfStudents$.next(this.student.studentData);
     }
     else{
       this.student.getStudentList().subscribe( (students:Student[]) =>{
-        this.listOfStudents = students
+        this.listOfStudents$.next(students);
       })
     }
     
@@ -32,7 +33,7 @@ export class StudentListComponent implements OnInit {
   trackByStudents(index: number, student: Student): number { return student.id }
   //deleting student from dom and sending delete request to the server
   deleteStudent(item:number,i:number){
-    this.listOfStudents.splice(i,1);
+    this.listOfStudents$.getValue().splice(i,1);
     this.student.deleteStudent(item).subscribe();
   }
 
